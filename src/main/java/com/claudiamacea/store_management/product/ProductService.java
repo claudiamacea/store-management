@@ -16,6 +16,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductCategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
     public ProductReponse findById(Integer id) {
@@ -39,5 +40,14 @@ public class ProductService {
                 products.isFirst(),
                 products.isLast()
         );
+    }
+
+    public Integer save(ProductRequest productRequest) {
+        ProductCategory category = categoryRepository.findById(productRequest.getCategoryId())
+                .orElseThrow(
+                        ()-> new EntityNotFoundException("Categoria de produs nu a fost gasita cu id " + productRequest.getCategoryId()));
+        Product product = productMapper.toProduct(productRequest);
+        product.setCategory(category);
+        return productRepository.save(product).getId();
     }
 }

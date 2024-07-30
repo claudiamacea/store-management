@@ -15,8 +15,18 @@ public class ProductMapper {
                 .active(product.isActive())
                 .imageUrl(product.getImageUrl())
                 .category(product.getCategory().getName())
-                .createdDate(product.getCreatedDate())
-                .updatedDate(product.getUpdatedDate())
+//                .createdDate(product.getCreatedDate())
+//                .updatedDate(product.getUpdatedDate())
+                .build();
+    }
+
+    public Product toProduct(ProductRequest productRequest){
+        return Product.builder()
+                .name(productRequest.getName())
+                .description(productRequest.getDescription())
+                .price(productRequest.getPrice())
+                .quantity(productRequest.getQuantity())
+                .active(productRequest.isActive())
                 .build();
     }
 }

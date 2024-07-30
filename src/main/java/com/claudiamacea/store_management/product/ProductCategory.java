@@ -21,8 +21,9 @@ public class ProductCategory {
 
     private String name;
     private String description;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+    //TODO with @EntityListeners(AuditingEntityListener.class)
+//    private LocalDateTime createdDate;
+//    private LocalDateTime updatedDate;
 
     @OneToMany(mappedBy = "category")
     private List<Product> products;
