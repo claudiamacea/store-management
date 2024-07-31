@@ -1,6 +1,7 @@
 package com.claudiamacea.store_management.product;
 
 import com.claudiamacea.store_management.common.PageResponse;
+import com.claudiamacea.store_management.exception.ProductNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ public class ProductService {
     public ProductReponse findById(Integer id) {
         return productRepository.findById(id)
                 .map(productMapper::toProductReponse)
-                .orElseThrow(()-> new EntityNotFoundException("Product not found with id " + id));
+                .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
     }
 
     public PageResponse<ProductReponse> findAllProducts(int page, int size) {
