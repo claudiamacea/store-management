@@ -1,6 +1,7 @@
 package com.claudiamacea.store_management.product;
 
 import com.claudiamacea.store_management.common.PageResponse;
+import com.claudiamacea.store_management.exception.CategoryNotFoundException;
 import com.claudiamacea.store_management.exception.ProductNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,7 @@ public class ProductService {
     public Integer save(ProductRequest productRequest) {
         ProductCategory category = categoryRepository.findById(productRequest.getCategoryId())
                 .orElseThrow(
-                        ()-> new EntityNotFoundException("Categoria de produs nu a fost gasita cu id " + productRequest.getCategoryId()));
+                        ()-> new CategoryNotFoundException("Categoria de produs cu id " + productRequest.getCategoryId() + " nu a fost gasita "));
         Product product = productMapper.toProduct(productRequest);
         product.setCategory(category);
         return productRepository.save(product).getId();

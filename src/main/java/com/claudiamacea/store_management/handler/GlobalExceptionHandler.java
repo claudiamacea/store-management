@@ -1,5 +1,6 @@
 package com.claudiamacea.store_management.handler;
 
+import com.claudiamacea.store_management.exception.CategoryNotFoundException;
 import com.claudiamacea.store_management.exception.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,19 @@ public class GlobalExceptionHandler {
                 .body(
                         ExceptionResponse.builder()
                                 .errorDescription("Product not found")
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleException(CategoryNotFoundException exp){
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(
+                        ExceptionResponse.builder()
+                                .errorDescription("Product category not found")
                                 .error(exp.getMessage())
                                 .build()
                 );
