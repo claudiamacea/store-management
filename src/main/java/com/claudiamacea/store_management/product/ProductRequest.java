@@ -1,5 +1,6 @@
 package com.claudiamacea.store_management.product;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -7,17 +8,18 @@ import lombok.Getter;
 @Getter
 public class ProductRequest {
     private Integer id;
-    @NotNull(message = "100")
-    @NotEmpty(message = "100")
+    @NotNull(message = "Product name should not be empty")
+    @NotEmpty(message = "Product name should not be empty")
     private String name;
-    @NotNull(message = "101")
-    @NotEmpty(message = "101")
+    @NotNull(message = "Product description should not be empty")
+    @NotEmpty(message = "Product description should not be empty")
     private String description;
-    @NotNull(message = "102")
+    @Min(value = 0, message = "Price shuld be greater than 0")
     private Double price;
-    @NotNull(message = "103")
+    @NotNull(message = "Product quantity should not be empty")
+    @Min(value = 0, message = "Quantity should not be less than 0")
     private Integer quantity;
     private boolean active;
-    @NotNull(message = "104")
+    @NotNull(message = "Product category should not be empty")
     private Integer categoryId;
 }
