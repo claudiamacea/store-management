@@ -5,6 +5,8 @@ import com.claudiamacea.store_management.exception.CategoryNotFoundException;
 import com.claudiamacea.store_management.exception.ProductNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private final ProductRepository productRepository;
     private final ProductCategoryRepository categoryRepository;
@@ -50,6 +54,8 @@ public class ProductService {
                         ()-> new CategoryNotFoundException("Categoria de produs cu id " + productRequest.getCategoryId() + " nu a fost gasita "));
         Product product = productMapper.toProduct(productRequest);
         product.setCategory(category);
-        return productRepository.save(product).getId();
+        int newProductId =  productRepository.save(product).getId();
+        logger.info("Product with id {} was successfully saved", newProductId);
+        return newProductId;
     }
 }
