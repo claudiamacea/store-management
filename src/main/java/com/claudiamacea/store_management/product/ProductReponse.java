@@ -20,7 +20,7 @@ public class ProductReponse {
     private Integer quantity;
     private String imageUrl;
     private boolean active;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+//    private LocalDateTime createdDate;
+//    private LocalDateTime updatedDate;
     private String category;
 }

@@ -58,4 +58,21 @@ public class ProductService {
         logger.info("Product with id {} was successfully saved", newProductId);
         return newProductId;
     }
+
+    public ProductReponse updateProduct(Integer id, ProductRequest productRequest) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
+        ProductCategory category = categoryRepository.findById(productRequest.getCategoryId())
+                .orElseThrow(
+                        ()-> new CategoryNotFoundException("Categoria de produs cu id " + productRequest.getCategoryId() + " nu a fost gasita "));
+        product.setName(productRequest.getName());
+        product.setDescription(productRequest.getDescription());
+        product.setActive(productRequest.isActive());
+        product.setCategory(category);
+        product.setPrice(productRequest.getPrice());
+        product.setQuantity(productRequest.getQuantity());
+        productRepository.save(product);
+        logger.info("Product with id {} was successfully updated with this: {}", id, product.toString());
+        return productMapper.toProductReponse(product);
+    }
 }
