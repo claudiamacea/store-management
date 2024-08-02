@@ -1,4 +1,4 @@
-package com.claudiamacea.store_management.product;
+package com.claudiamacea.store_management.product.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;

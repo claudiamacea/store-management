@@ -1,9 +1,16 @@
-package com.claudiamacea.store_management.product;
+package com.claudiamacea.store_management.product.service;
 
 import com.claudiamacea.store_management.common.PageResponse;
 import com.claudiamacea.store_management.exception.CategoryNotFoundException;
 import com.claudiamacea.store_management.exception.ProductNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
+import com.claudiamacea.store_management.product.controller.ProductController;
+import com.claudiamacea.store_management.product.dto.ProductReponse;
+import com.claudiamacea.store_management.product.dto.ProductRequest;
+import com.claudiamacea.store_management.product.entity.Product;
+import com.claudiamacea.store_management.product.entity.ProductCategory;
+import com.claudiamacea.store_management.product.mapper.ProductMapper;
+import com.claudiamacea.store_management.product.repository.ProductCategoryRepository;
+import com.claudiamacea.store_management.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +24,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService {
+public class ProductServiceImpl implements ProductService{
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
@@ -25,12 +32,14 @@ public class ProductService {
     private final ProductCategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
+    @Override
     public ProductReponse findById(Integer id) {
         return productRepository.findById(id)
                 .map(productMapper::toProductReponse)
                 .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
     }
 
+    @Override
     public PageResponse<ProductReponse> findAllProducts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Product> products = productRepository.findAll(pageable);
@@ -48,6 +57,7 @@ public class ProductService {
         );
     }
 
+    @Override
     public Integer save(ProductRequest productRequest) {
         ProductCategory category = categoryRepository.findById(productRequest.getCategoryId())
                 .orElseThrow(
@@ -59,6 +69,7 @@ public class ProductService {
         return newProductId;
     }
 
+    @Override
     public ProductReponse updateProduct(Integer id, ProductRequest productRequest) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
@@ -77,6 +88,7 @@ public class ProductService {
         return productMapper.toProductReponse(product);
     }
 
+    @Override
     public String deleteProduct(Integer id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));

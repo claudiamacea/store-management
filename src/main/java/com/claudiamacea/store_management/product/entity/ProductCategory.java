@@ -1,19 +1,18 @@
-package com.claudiamacea.store_management.product;
+package com.claudiamacea.store_management.product.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "PRODUCTS")
-public class Product {
+@Table(name = "PRODUCT_CATEGORY")
+public class ProductCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,15 +20,10 @@ public class Product {
 
     private String name;
     private String description;
-    private Double price;
-    private Integer quantity;
-    private String imageUrl;
-    private boolean active;
     //TODO with @EntityListeners(AuditingEntityListener.class)
 //    private LocalDateTime createdDate;
 //    private LocalDateTime updatedDate;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private ProductCategory category;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }

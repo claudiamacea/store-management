@@ -1,10 +1,6 @@
-package com.claudiamacea.store_management.product;
+package com.claudiamacea.store_management.product.dto;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

@@ -1,9 +1,9 @@
 package com.claudiamacea.store_management;
 
-import com.claudiamacea.store_management.product.Product;
-import com.claudiamacea.store_management.product.ProductCategory;
-import com.claudiamacea.store_management.product.ProductCategoryRepository;
-import com.claudiamacea.store_management.product.ProductRepository;
+import com.claudiamacea.store_management.product.entity.Product;
+import com.claudiamacea.store_management.product.entity.ProductCategory;
+import com.claudiamacea.store_management.product.repository.ProductCategoryRepository;
+import com.claudiamacea.store_management.product.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

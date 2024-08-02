@@ -1,6 +1,10 @@
-package com.claudiamacea.store_management.product;
+package com.claudiamacea.store_management.product.controller;
 
 import com.claudiamacea.store_management.common.PageResponse;
+import com.claudiamacea.store_management.product.dto.ProductReponse;
+import com.claudiamacea.store_management.product.dto.ProductRequest;
+import com.claudiamacea.store_management.product.service.ProductService;
+import com.claudiamacea.store_management.product.service.ProductServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
