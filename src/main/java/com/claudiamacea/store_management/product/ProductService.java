@@ -65,6 +65,7 @@ public class ProductService {
         ProductCategory category = categoryRepository.findById(productRequest.getCategoryId())
                 .orElseThrow(
                         ()-> new CategoryNotFoundException("Categoria de produs cu id " + productRequest.getCategoryId() + " nu a fost gasita "));
+        logger.info("Updating product with ID {} and these details {}", id, product.toString());
         product.setName(productRequest.getName());
         product.setDescription(productRequest.getDescription());
         product.setActive(productRequest.isActive());
@@ -72,7 +73,15 @@ public class ProductService {
         product.setPrice(productRequest.getPrice());
         product.setQuantity(productRequest.getQuantity());
         productRepository.save(product);
-        logger.info("Product with id {} was successfully updated with this: {}", id, product.toString());
+        logger.info("Product with id {} was successfully updated with this new details: {}", id, product.toString());
         return productMapper.toProductReponse(product);
+    }
+
+    public String deleteProduct(Integer id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
+        productRepository.deleteById(id);
+        logger.info("Product with ID {} was successfully deleted - {}", id, product.toString());
+        return "Product with ID " + id + " was successfully deleted";
     }
 }
