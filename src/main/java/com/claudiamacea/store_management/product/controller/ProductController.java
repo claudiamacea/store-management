@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class ProductController {
     @PostMapping("")
     public ResponseEntity<Integer> saveProduct(@Valid @RequestBody ProductRequest productRequest){
         logger.info("Saving product with details: {}", productRequest.toString());
-        return ResponseEntity.ok(productService.save(productRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productRequest));
     }
 
     @PutMapping("{product-id}")
@@ -48,8 +49,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{product-id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("product-id") Integer id){
+    public ResponseEntity<Void> deleteProduct(@PathVariable("product-id") Integer id){
         logger.info("Deleting product with ID: {}", id);
-        return ResponseEntity.ok(productService.deleteProduct(id));
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 }
