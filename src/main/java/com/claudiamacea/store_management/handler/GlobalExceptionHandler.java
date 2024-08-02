@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -65,6 +66,20 @@ public class GlobalExceptionHandler {
                 .body(
                         ExceptionResponse.builder()
                                 .errorDescription("Product category not found")
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ExceptionResponse> handleMethodNotAllowed(HttpRequestMethodNotSupportedException exp) {
+
+        logger.error("Method not allowed exception occurred: ", exp);
+        return ResponseEntity
+                .status(HttpStatus.METHOD_NOT_ALLOWED)
+                .body(
+                        ExceptionResponse.builder()
+                                .errorDescription("Method Not Allowed")
                                 .error(exp.getMessage())
                                 .build()
                 );

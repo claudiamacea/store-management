@@ -1,9 +1,10 @@
 package com.claudiamacea.store_management.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -17,7 +18,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
@@ -50,7 +55,11 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/v1/products/category").hasAnyRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(httpBasicConfigurer -> httpBasicConfigurer
+                        .authenticationEntryPoint(customAuthenticationEntryPoint))
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .accessDeniedHandler(customAccessDeniedHandler))
                 .build();
     }
 
