@@ -1,6 +1,7 @@
 package com.claudiamacea.store_management.product.controller;
 
 import com.claudiamacea.store_management.common.PageResponse;
+import com.claudiamacea.store_management.product.dto.PriceUpdateRequest;
 import com.claudiamacea.store_management.product.dto.ProductResponse;
 import com.claudiamacea.store_management.product.dto.ProductRequest;
 import com.claudiamacea.store_management.product.service.ProductService;
@@ -45,6 +46,12 @@ public class ProductController {
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable("product-id") Integer id,
                                                          @Valid @RequestBody ProductRequest productRequest){
         return ResponseEntity.ok(productService.updateProduct(id, productRequest));
+    }
+
+    @PutMapping("{product-id}/price")
+    public ResponseEntity<ProductResponse> updatePrice(@PathVariable("product-id") Integer id,
+                                                       @Valid @RequestBody PriceUpdateRequest priceUpdateRequest) {
+        return ResponseEntity.ok(productService.updatePrice(id, priceUpdateRequest));
     }
 
     @DeleteMapping("/{product-id}")

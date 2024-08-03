@@ -1,6 +1,7 @@
 package com.claudiamacea.store_management.product.service;
 
 import com.claudiamacea.store_management.common.PageResponse;
+import com.claudiamacea.store_management.product.dto.PriceUpdateRequest;
 import com.claudiamacea.store_management.product.dto.ProductResponse;
 import com.claudiamacea.store_management.product.dto.ProductRequest;
 
@@ -11,5 +12,5 @@ public interface ProductService {
     Integer save(ProductRequest productRequest);
     ProductResponse updateProduct(Integer id, ProductRequest productRequest);
     String deleteProduct(Integer id);
-
+    ProductResponse updatePrice(Integer id, PriceUpdateRequest priceUpdateRequest);
 }

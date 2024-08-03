@@ -4,6 +4,7 @@ import com.claudiamacea.store_management.common.PageResponse;
 import com.claudiamacea.store_management.exception.CategoryNotFoundException;
 import com.claudiamacea.store_management.exception.ProductNotFoundException;
 import com.claudiamacea.store_management.product.controller.ProductController;
+import com.claudiamacea.store_management.product.dto.PriceUpdateRequest;
 import com.claudiamacea.store_management.product.dto.ProductResponse;
 import com.claudiamacea.store_management.product.dto.ProductRequest;
 import com.claudiamacea.store_management.product.entity.Product;
@@ -95,5 +96,16 @@ public class ProductServiceImpl implements ProductService{
         productRepository.deleteById(id);
         logger.info("Product with ID {} was successfully deleted - {}", id, product.toString());
         return "Product with ID " + id + " was successfully deleted";
+    }
+
+    @Override
+    public ProductResponse updatePrice(Integer id, PriceUpdateRequest priceUpdateRequest){
+        logger.info("Updating price {} for product with ID {}", priceUpdateRequest.getPrice(), id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
+        product.setPrice(priceUpdateRequest.getPrice());
+        productRepository.save(product);
+        logger.info("Product with id {} was successfully updated with new price: {}", id, priceUpdateRequest.getPrice());
+        return productMapper.toProductReponse(product);
     }
 }
