@@ -4,7 +4,7 @@ import com.claudiamacea.store_management.common.PageResponse;
 import com.claudiamacea.store_management.exception.CategoryNotFoundException;
 import com.claudiamacea.store_management.exception.ProductNotFoundException;
 import com.claudiamacea.store_management.product.controller.ProductController;
-import com.claudiamacea.store_management.product.dto.ProductReponse;
+import com.claudiamacea.store_management.product.dto.ProductResponse;
 import com.claudiamacea.store_management.product.dto.ProductRequest;
 import com.claudiamacea.store_management.product.entity.Product;
 import com.claudiamacea.store_management.product.entity.ProductCategory;
@@ -33,22 +33,22 @@ public class ProductServiceImpl implements ProductService{
     private final ProductMapper productMapper;
 
     @Override
-    public ProductReponse findById(Integer id) {
+    public ProductResponse findById(Integer id) {
         return productRepository.findById(id)
                 .map(productMapper::toProductReponse)
                 .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
     }
 
     @Override
-    public PageResponse<ProductReponse> findAllProducts(int page, int size) {
+    public PageResponse<ProductResponse> findAllProducts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Product> products = productRepository.findAll(pageable);
-        List<ProductReponse> productReponseList =
+        List<ProductResponse> productResponseList =
                 products.stream()
                         .map(productMapper::toProductReponse)
                         .toList();
         return new PageResponse<>(
-                productReponseList,
+                productResponseList,
                 products.getNumber(),
                 products.getNumberOfElements(),
                 products.getTotalPages(),
@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductReponse updateProduct(Integer id, ProductRequest productRequest) {
+    public ProductResponse updateProduct(Integer id, ProductRequest productRequest) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
         ProductCategory category = categoryRepository.findById(productRequest.getCategoryId())

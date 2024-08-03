@@ -1,10 +1,9 @@
 package com.claudiamacea.store_management.product.controller;
 
 import com.claudiamacea.store_management.common.PageResponse;
-import com.claudiamacea.store_management.product.dto.ProductReponse;
+import com.claudiamacea.store_management.product.dto.ProductResponse;
 import com.claudiamacea.store_management.product.dto.ProductRequest;
 import com.claudiamacea.store_management.product.service.ProductService;
-import com.claudiamacea.store_management.product.service.ProductServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,13 +21,13 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @GetMapping("{product-id}")
-    public ResponseEntity<ProductReponse> findProductById(@PathVariable("product-id") Integer id){
+    public ResponseEntity<ProductResponse> findProductById(@PathVariable("product-id") Integer id){
         logger.info("Fetching product with id {}", id);
         return ResponseEntity.ok(productService.findById(id));
     }
 
     @GetMapping("")
-    public ResponseEntity<PageResponse<ProductReponse>> findAll(
+    public ResponseEntity<PageResponse<ProductResponse>> findAll(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "0", required = false) int size
     ){
@@ -43,8 +42,8 @@ public class ProductController {
     }
 
     @PutMapping("{product-id}")
-    public ResponseEntity<ProductReponse> updateProduct(@PathVariable("product-id") Integer id,
-            @Valid @RequestBody ProductRequest productRequest){
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable("product-id") Integer id,
+                                                         @Valid @RequestBody ProductRequest productRequest){
         return ResponseEntity.ok(productService.updateProduct(id, productRequest));
     }
 

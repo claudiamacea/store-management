@@ -17,27 +17,27 @@ public class StoreManagementApplication {
 		SpringApplication.run(StoreManagementApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner startup(ProductRepository productRepository,
-									 ProductCategoryRepository categoryRepository) {
-		return args -> {
-			categoryRepository.save(
-					ProductCategory.builder()
-							.name("panificatie")
-							.description("Produse de panificatie")
-							.build()
-			);
-
-			productRepository.save(
-					Product.builder()
-							.name("paine")
-							.description("paine de casa cu maia")
-							.price(10.3)
-							.quantity(100)
-							.category(categoryRepository.findById(1)
-									.orElseThrow(()-> new EntityNotFoundException("Categorie negasita")))
-							.build()
-			);
-		};
-	}
+//	@Bean
+//	public CommandLineRunner startup(ProductRepository productRepository,
+//									 ProductCategoryRepository categoryRepository) {
+//		return args -> {
+//			categoryRepository.save(
+//					ProductCategory.builder()
+//							.name("panificatie")
+//							.description("Produse de panificatie")
+//							.build()
+//			);
+//
+//			productRepository.save(
+//					Product.builder()
+//							.name("paine")
+//							.description("paine de casa cu maia")
+//							.price(10.3)
+//							.quantity(100)
+//							.category(categoryRepository.findById(1)
+//									.orElseThrow(()-> new EntityNotFoundException("Categorie negasita")))
+//							.build()
+//			);
+//		};
+//	}
 }
