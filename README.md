@@ -40,6 +40,12 @@ Security
     Example credentials:
         Username: admin Password: admin
         Username: user Password: password
+
+Database Configuration
+This project uses an H2 in-memory database for testing convenience. 
+There is some initial data loaded for testing purposes (2 product categories and 3 products).
+The initial data is loaded from src/main/resources/data.sql.
+
 Setup
     Prerequisites
         Java 9 or higher
