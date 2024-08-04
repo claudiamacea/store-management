@@ -18,8 +18,6 @@ public class ProductMapper {
                 .active(product.isActive())
                 .imageUrl(product.getImageUrl())
                 .category(product.getCategory().getName())
-//                .createdDate(product.getCreatedDate())
-//                .updatedDate(product.getUpdatedDate())
                 .build();
     }
 

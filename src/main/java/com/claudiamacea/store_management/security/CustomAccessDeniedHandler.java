@@ -1,7 +1,6 @@
 package com.claudiamacea.store_management.security;
 
 import com.claudiamacea.store_management.handler.ExceptionResponse;
-import com.claudiamacea.store_management.handler.GlobalExceptionHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

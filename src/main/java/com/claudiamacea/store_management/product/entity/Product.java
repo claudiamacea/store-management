@@ -23,9 +23,6 @@ public class Product {
     private Integer quantity;
     private String imageUrl;
     private boolean active;
-    //TODO with @EntityListeners(AuditingEntityListener.class)
-//    private LocalDateTime createdDate;
-//    private LocalDateTime updatedDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

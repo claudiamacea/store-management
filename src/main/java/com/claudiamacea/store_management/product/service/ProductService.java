@@ -11,6 +11,6 @@ public interface ProductService {
     PageResponse<ProductResponse> findAllProducts(int page, int size);
     Integer save(ProductRequest productRequest);
     ProductResponse updateProduct(Integer id, ProductRequest productRequest);
-    String deleteProduct(Integer id);
+    void deleteProduct(Integer id);
     ProductResponse updatePrice(Integer id, PriceUpdateRequest priceUpdateRequest);
 }

@@ -90,12 +90,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public String deleteProduct(Integer id) {
+    public void deleteProduct(Integer id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()-> new ProductNotFoundException("Product with id " + id + " not found"));
         productRepository.deleteById(id);
         logger.info("Product with ID {} was successfully deleted - {}", id, product.toString());
-        return "Product with ID " + id + " was successfully deleted";
     }
 
     @Override
