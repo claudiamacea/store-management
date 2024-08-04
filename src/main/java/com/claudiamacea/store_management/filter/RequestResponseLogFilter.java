@@ -24,6 +24,7 @@ public class RequestResponseLogFilter  extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         if (request.getRequestURI().toLowerCase().contains("/api/v1")) {
+            response.setContentType("application/json");
             try {
                 filterChain.doFilter(request, response);
             }

@@ -51,9 +51,9 @@ Setup
         Build the project:
             ./mvnw clean install
         Run the application:
-            ./mvnw spring-boot:run 
-
+            ./mvnw spring-boot:run
 The application will start on http://localhost:8080 by default.
-    Testing
-        Unit tests for the ProductController are located in src/test/java/com/claudiamacea/store_management/product/controller/ProductControllerTest.java. You can run the tests using:
-            ./mvnw test
+
+Testing
+    Unit tests for the ProductController are located in src/test/java/com/claudiamacea/store_management/product/controller/ProductControllerTest.java. You can run the tests using:
+        ./mvnw test
