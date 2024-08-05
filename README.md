@@ -60,6 +60,9 @@ The initial data is loaded from src/main/resources/data.sql.
             ./mvnw spring-boot:run
 ## The application will start on http://localhost:8080 by default.
 
+#Example of curl command to make a GET request to find a product by Id:
+curl -X GET "http://localhost:8080/api/v1/products/1" -H "Accept: application/json" -u admin:admin
+
 ## Testing
     - Unit tests for the ProductController are located in src/test/java/com/claudiamacea/store_management/product/controller/ProductControllerTest.java. You can run the tests using:
         ./mvnw test
